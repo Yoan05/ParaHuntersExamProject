@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<ul class="table-ul">
+    <li>
+        <table class="all-listings">
+            <h2 class="all-listings-header"> My listings: </h2>
+            <tr th:each="myListing : ${listingDisplayDTO.getMyListings()}">
+                <td>
+                    <ul>
+                        <li>
+                            <th:block th:text="${myListing.getName()}">Name</th:block>
+                        </li>
+                        <li>
+                            <th:block th:text="${myListing.getType().getDescription()}">Type</th:block>
+                        </li>
+                        <li>
+                            <th:block th:text="${myListing.getPrice()} + 'lv'">Price</th:block>
+                        </li>
+                    </ul>
+                    <th:block><img th:src="${myListing.getImageUrl()}" alt="Image Missing"></th:block>
+                    <a class="view-a" th:href="@{/listings/view-my-listing/{id}(id=${myListing.getId()})}"
+                       style="color: white; text-decoration: none">View</a>
+                </td>
+            </tr>
+        </table>
+    </li>
+    <li>
+        <table class="all-listings">
+            <h2 class="all-listings-header"> Bought products: </h2>
+            <tr th:each="myListing : ${listingDisplayDTO.getBoughtProducts()}">
+                <td>
+                    <ul>
+                        <li>
+                            <th:block th:text="${myListing.getName()}">Name</th:block>
+                        </li>
+                        <li>
+                            <th:block th:text="${myListing.getPrice()} + 'lv'">Price</th:block>
+                        </li>
+                        <li>
+                            <form th:action="@{/listings/delete/{id}(id=${myListing.getId()})}" th:method="POST">
+                                <button class="clear-btn" type="submit">Clear</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <th:block><img th:src="${myListing.getImageUrl()}" alt="Image Missing"></th:block>
+                </td>
+            </tr>
+        </table>
+    </li>
+</ul>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

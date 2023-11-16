@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<form th:action="@{/creatures/add}" th:method="POST">
+    <h2>Add a creature</h2>
+    <div class="create-inputs">
+        <input name="name" type="text" placeholder="Name">
+        <input name="description" type="text" placeholder="Description">
+        <input name="region" type="text" placeholder="Region">
+        <select name="difficulty" id="difficulty">
+            <option value="EASY">Easy</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HARD">Hard</option>
+            <option value="EXPERT">Expert</option>
+        </select>
+        <input name="imageUrl" type="text" placeholder="Image URL">
+
+        <button type="submit">Add Creature!</button>
+    </div>
+</form>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

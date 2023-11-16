@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<div class="post-div">
+    <h2>Welcome to PostIt! Here you can share your "trophies" from successful hunts!</h2>
+    <h2>You can add a new post <a th:href="@{/post-it/create}">here</a>!</h2>
+    <table class="post">
+        <tr th:each="post : ${allPosts}">
+            <td>
+                <ul class="post-layout">
+                    <li th:text="'By: ' + ${post.getCreatedBy().getFullName()}">name</li>
+                    <li th:text="${post.getDescription()}">description</li>
+                    <li><img class="post-image" th:src="${post.getImgUrl()}" alt=""></li>
+                    <li>
+                        <ul class="like-layout">
+                            <li>
+                                <form th:action="@{/post-it/like/{id}(id=${post.getId()})}" th:method="POST">
+                                    <button type="submit" style="background-color: transparent ;border-color: transparent; font-size: 16px"><i class="fa-regular fa-heart"></i></button>
+                                </form>
+                            </li>
+                            <li th:text="${post.getLikes()} + ' likes'">100 likes</li>
+                            <form th:if="${currentUser.getFullName()} == ${post.getCreatedBy().getFullName()}"
+                                  th:action="@{/post-it/delete/{id}(id=${post.getId()})}" th:method="POST">
+                                <button class="clear-btn" type="submit">Delete My Post</button>
+                            </form>
+                        </ul>
+                    </li>
+                    <li th:text="${post.getDate().getDayOfMonth()} + '-' + ${post.getDate().getMonthValue()} + '-' + ${post.getDate().getYear()}">
+                        date?
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

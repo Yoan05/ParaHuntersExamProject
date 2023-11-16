@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<div class="welcome">
+    <h1>Welcome to ParaHunters!</h1>
+    <h2>The official website for paranormal hunters owned by ParaHunters</h2>
+    <p>In order to continue, you need to <a th:href="@{/register}">Register</a> or <a th:href="@{/login}">Login</a> if
+        you already have an account.</p>
+</div>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

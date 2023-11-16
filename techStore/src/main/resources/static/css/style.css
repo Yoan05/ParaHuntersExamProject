@@ -1,0 +1,533 @@
+h1 {
+
+}
+
+body {
+    background-image: url(/images/backgroundScary.webp);
+    background-size: cover;
+}
+
+.welcome {
+    text-align: center;
+    margin-top: 5%;
+    color: whitesmoke;
+}
+
+.login-inputs {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 42%;
+    margin-right: 42%;
+    margin-top: 35px;
+    font-size: 21px;
+}
+
+.login-inputs input {
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 18px;
+}
+
+.login-inputs button {
+    margin-right: 30%;
+    margin-left: 30%;
+    padding-bottom: 3px;
+    padding-top: 4px;
+    font-size: 18px;
+    background-color: cadetblue;
+}
+
+.login-welcome {
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.register-invite {
+    color: white;
+    margin-left: 863px;
+    margin-top: 10px;
+}
+
+.register-inputs {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 42%;
+    margin-right: 42%;
+    margin-top: 3%;
+    font-size: 21px;
+}
+
+.register-inputs input {
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 18px;
+
+}
+
+.register-inputs button {
+    margin-right: 30%;
+    margin-left: 30%;
+    padding-bottom: 3px;
+    padding-top: 4px;
+    font-size: 18px;
+    background-color: cadetblue;
+}
+
+.register-warning {
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-size: cover;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: white;
+    gap: 96px;
+}
+
+ul li a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav ul li a:hover {
+    color: #555555;
+}
+
+.logout-btn {
+    background-color: transparent;
+    color: white;
+    border-color: transparent;
+    font-size: 18px;
+    padding: 6px 14px;
+    margin-top: 5px;
+}
+
+.logout-btn:hover {
+    color: darkred;
+}
+
+.all-listings-header {
+    width: 463px;
+    height: auto;
+    color: white;
+    text-align: center;
+}
+
+.all-listings td {
+    width: 455px;
+}
+
+td ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-areas: "aaa aaa aaa";
+    gap: 40px;
+    color: #f1f1f1;
+}
+
+td ul li {
+    margin-bottom: 10px;
+}
+
+td img {
+    width: 400px;
+    height: 200px;
+    margin-left: 26px;
+    margin-top: -8px;
+}
+
+.listing-image {
+    width: 1000px;
+    height: 600px;
+}
+
+.listing-info {
+    font-size: 20px;
+    color: white;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.listing {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.view-a {
+    margin-left: 200px;
+}
+
+.buy-form {
+    position: absolute;
+    margin-left: 1500px;
+    width: 150px;
+    margin-top: 20px;
+}
+
+.buy-btn {
+    position: absolute;
+    font-size: 20px;
+    border-radius: 2px;
+    width: 150px;
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+}
+
+.buy-btn:hover {
+    background-color: #171616;
+}
+
+.admin-welcome {
+    color: white;
+    text-align: center;
+}
+
+.table-ul {
+    display: flex;
+    flex-direction: row;
+    gap: 900px;
+}
+
+.clear-btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+}
+
+h2 {
+    color: white;
+    text-align: center;
+}
+
+h3 {
+    color: white;
+    text-align: center;
+}
+
+.seller-li {
+    position: absolute;
+    margin-top: 250px;
+}
+
+.account-table {
+    /*margin-left: 600px;*/
+    font-size: 20px;
+}
+
+.account-table tr td ul li a {
+    margin-top: -8px;
+}
+
+.account-table tr td ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.create-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.create-inputs input {
+    text-align: center;
+    background-color: transparent;
+    border-color: rgb(118, 118, 118);
+    color: white;
+    width: 220px;
+    height: 20px;
+    font-size: 14px;
+}
+
+.create-inputs select option {
+    text-align: center;
+    background-color: black;
+    color: rgb(118, 118, 118);
+    border-color: rgb(118, 118, 118);
+}
+
+.create-inputs select {
+    background-color: transparent;
+    color: rgb(118, 118, 118);
+    width: 220px;
+    border-color: rgb(118, 118, 118);
+}
+
+.create-inputs button {
+    background-color: transparent;
+    padding: 5px 10px;
+    color: rgb(118, 118, 118);
+    width: 216px;
+    border-radius: 2px;
+    border-color: rgb(118, 118, 118);
+}
+
+.create-inputs button:hover {
+    background-color: rgb(118, 118, 118);
+    color: black;
+    transition-duration: 0.2s;
+}
+
+.post-div {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 39%;
+    left: 50%;
+    margin-left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.post-layout {
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    gap: 0;
+    width: 384px;
+}
+
+.post-image {
+    margin-left: 0;
+    width: 500px;
+    height: 350px;
+}
+
+.like-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    margin-left: -39px;
+}
+
+.remove-creature {
+    position: absolute;
+    margin-top: 19px;
+    margin-left: 350px;
+
+}
+
+.remove-creature button {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-size: 18px;
+    padding: 3px 5px;
+}
+
+.remove-creature:hover {
+    background-color: #171616;
+    border-radius: 2px;
+}
+
+.creature-layout {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3px;
+    align-items: center;
+}
+
+footer {
+    align-items: center;
+    text-align: center;
+    width: 99%;
+    color: white;
+    position: fixed;
+    bottom: -13px;
+}
+
+.footer-ul {
+    color: white;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+
+}
+
+.icon-class {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    gap: 20px;
+    margin-left: -45px;
+}
+
+@media (max-width: 1025px) {
+    .nav-links {
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .register-invite {
+        margin-left: 207px;
+    }
+
+    body {
+        background-image: url(/images/backgroundScaryPortrait.jpg);
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .table-ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-right: 40px;
+        height: 1000px;
+    }
+
+    .listing {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .listing-info {
+        align-items: center;
+    }
+
+    .listing-image {
+        width: 500px;
+        height: 300px;
+    }
+
+    .creature-layout-parent {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .creature-layout {
+        margin-left: 170px;
+    }
+
+    .buy-form {
+        margin-left: 0;
+        margin-top: 600px;
+    }
+
+    .buy-btn {
+        border-color: #555555;
+    }
+
+    .post-div {
+        margin-top: 430px;
+    }
+
+
+    .post-image {
+        margin-left: 0;
+        width: 384px;
+        height: 216px;
+    }
+}
+
+
+
+@media (max-width: 500px) {
+    .register-invite {
+        margin-left: 121px;
+    }
+
+    body {
+        background-image: url(/images/backgroundScaryPortrait.jpg);
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .table-ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-right: 12px;
+    }
+
+    .all-listings-header {
+        margin-left: -20px;
+    }
+
+    .listing {
+        display: flex;
+        flex-direction: column;
+        margin-right: 40px;
+    }
+
+    .listing-info {
+        align-items: center;
+        width: 385px;
+    }
+
+    .listing-image {
+        width: 380px;
+        height: 240px;
+    }
+
+    .creature-layout-parent {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .creature-layout {
+        margin-left: -13px;
+    }
+
+    .creature-layout img {
+        width: 380px;
+        height: 200px;
+    }
+
+    .buy-form {
+        margin-left: 0;
+        margin-top: 600px;
+    }
+
+    .buy-btn {
+        border-color: #555555;
+    }
+
+    .post-image {
+        margin-left: 0;
+        width: 384px;
+        height: 216px;
+    }
+
+    .post {
+        margin-left: -28px;
+    }
+
+    .all-listings img {
+        width: 380px;
+    }
+
+    .all-listings {
+        margin-left: -12px;
+    }
+}
