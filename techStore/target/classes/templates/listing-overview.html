@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<ul class="listing-list">
+    <li>
+        <div class="listing">
+            <img class="listing-image" th:src="${viewedProduct.getImageUrl()}" alt="Image Missing">
+            <div class="listing-info">
+                <h3 class="listing-name">
+                    <th:block th:text="${viewedProduct.getName()}">Name</th:block>
+                </h3>
+                <h3 class="listing-price">
+                    <th:block th:text="'Price: ' + ${viewedProduct.getPrice()} + 'lv'">Price: ....lv</th:block>
+                </h3>
+                <p class="listing-description">
+                    <th:block th:text="'Description: ' + ${viewedProduct.getDescription()}">Description:</th:block>
+                </p>
+                <p class="listing-seller">
+                    <th:block th:text="'Seller: ' + ${viewedProduct.getCreatedBy().getFullName()}">Seller: .....</th:block>
+                </p>
+                <p class="listing-type">
+                    <th:block th:text="'Type: ' + ${viewedProduct.getType().getDescription()}">Type:</th:block>
+                </p>
+            </div>
+            <form class="buy-form" th:action="@{/listings/buy/{id}(id=${viewedProduct.getId()})}" th:method="POST">
+            <button class="buy-btn" type="submit">
+                Buy Product
+            </button>
+            </form>
+        </div>
+    </li>
+</ul>
+</body>
+<footer th:replace="/fragments/commons::footer"></footer>
+</html>

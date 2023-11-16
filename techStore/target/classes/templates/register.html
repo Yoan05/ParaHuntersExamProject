@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<form th:method="POST" th:action="@{/register}">
+    <h2>Register:</h2>
+    <div class="create-inputs">
+        <input type="text" id="fullName" name="fullName" placeholder="Full Name">
+        <input type="email" id="email" name="email" placeholder="Email">
+        <input type="text" id="hunterCode" name="hunterCode" placeholder="Hunter Code">
+        <span class="register-warning"> 0000 for user; 1111 for admin ^</span>
+        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+
+        <button type="submit">Register!</button>
+    </div>
+
+</form>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

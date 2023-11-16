@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/commons::head"></head>
+
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<form th:action="@{/listings/create}" th:method="POST">
+    <h2>Create a listing</h2>
+    <div class="create-inputs">
+        <input name="name" type="text" placeholder="Name">
+        <input name="price" type="number" placeholder="Price">
+        <input name="description" type="text" placeholder="Description">
+        <input name="imageUrl" type="text" placeholder="Image URL">
+
+        <select name="type" id="type">
+            <option value="MELEE_WEAPON">Melee Weapon</option>
+            <option value="RANGED_WEAPON">Ranged Weapon</option>
+            <option value="GADGET">Gadget</option>
+        </select>
+
+        <button type="submit">Create listing!</button>
+    </div>
+</form>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<table class="all-listings">
+    <h2 th:if="${listingDisplayDTO.getListings().isEmpty()}">There are no other listings.</h2>
+    <form class="search-bar" th:if="${!listingDisplayDTO.getListings().isEmpty()}" th:action="@{/listings/search}" th:method="POST">
+        <input id="search-input" name="name" type="text" placeholder="Search for a product">
+        <button type="submit">search</button>
+    </form>
+    <tr th:each="listing : ${listingDisplayDTO.getListings()}">
+        <td>
+            <ul>
+                <li>
+                    <th:block th:text="${listing.getName()}">Name</th:block>
+                </li>
+                <li>
+                    <th:block th:text="${listing.getType().getDescription()}">Type</th:block>
+                </li>
+                <li>
+                    <th:block th:text="${listing.getPrice()} + lv">Price lv</th:block>
+                </li>
+                <li class="seller-li">
+                    <th:block th:text="'Seller: ' + ${listing.getSeller().getFullName()}">Seller</th:block>
+                </li>
+            </ul>
+            <th:block><img th:src="${listing.getImageUrl()}" alt="Image missing"></th:block>
+            <a class="view-a" th:href="@{/listings/view-listing/{id}(id=${listing.getId()})}" style="color: white; text-decoration: none">View</a>
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/listings/delete/{id}(id=${listing.getId()})}" th:method="POST" style="margin-left: 188px">
+                <button type="submit" style="border-color: transparent; background-color: transparent; color: white; font-size: 15px">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

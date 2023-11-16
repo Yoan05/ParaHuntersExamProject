@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<table class="all-creatures-table">
+    <h2 th:if="${allCreatures.isEmpty()}">There are no creatures.<th:block sec:authorize="hasRole('ADMIN')"><a th:href="@{/creatures/add}">Add a creature</a></th:block></h2>
+
+    <h2 th:unless="${allCreatures.isEmpty()}">All creatures:</h2>
+    <tr class="creature-layout-parent" th:each="creature : ${allCreatures}">
+        <td class="creature-layout">
+            <a th:href="@{/creatures/view/{id}(id = ${creature.getId})}">
+                <th:block th:text="${creature.getName()}"></th:block>
+            </a>
+            <img th:src="${creature.getImageUrl()}" alt="Image Missing">
+        </td>
+    </tr>
+</table>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<div sec:authorize="hasRole('ADMIN')">
+  <h2>All accounts:</h2>
+  <h3>Note: Admin accounts cannot be deleted.</h3>
+  <table class="account-table">
+    <tr  th:each="user : ${allUsers}">
+      <td>
+        <ul>
+          <li><th:block th:text="'Name: ' + ${user.getFullName()}"></th:block></li>
+          <li><th:block th:text="'Email: ' + ${user.getEmail()}"></th:block></li>
+          <li th:text="'Role: ' + ${user.getRoles().get(0).getName()}"></li>
+          <li th:unless="${user.getRoles().get(0).getName() == adminValue}">
+            <form th:action="@{/users/delete/{id}(id=${user.getId()})}" th:method="POST">
+            <button type="submit">Delete</button>
+            </form>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</div>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

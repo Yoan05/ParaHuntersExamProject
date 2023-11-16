@@ -1,0 +1,33 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+<ul class="listing-list">
+    <li>
+        <div class="listing">
+            <img class="listing-image" th:src="${viewedCreature.getImageUrl()}" alt="Image Missing">
+            <div class="listing-info">
+                <h3 class="listing-name">
+                    <th:block th:text="${viewedCreature.getName()}">Name</th:block>
+                </h3>
+                <h3 class="listing-price">
+                    <th:block th:text="'Difficulty: ' + ${viewedCreature.getDifficulty().getDescription}">Difficulty:</th:block>
+                </h3>
+                <p class="listing-description">
+                    <th:block th:text="'Description: ' + ${viewedCreature.getDescription()}">Description:</th:block>
+                </p>
+                <p class="listing-seller">
+                    <th:block th:text="'Region: ' + ${viewedCreature.getRegion()}">Region:</th:block>
+                </p>
+                <form class="remove-creature" sec:authorize="hasRole('ADMIN')" th:action="@{/creatures/remove/{id}(id=${viewedCreature.getId()})}" th:method="POST">
+                    <button type="submit">Remove Creature!</button>
+                </form>
+            </div>
+        </div>
+    </li>
+</ul>
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

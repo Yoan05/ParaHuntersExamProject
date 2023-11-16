@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, userEntity-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ParaHunters</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<nav>
+    <ul class="nav-links">
+        <li><a th:href="@{/home}">Welcome to ParaHunters, <th:block sec:authentication="name"></th:block>!</a></li>
+        <li><a th:href="@{/listings/create}">Create a listing</a></li>
+        <li><a th:href="@{/listings/all-listings}">Other Listings</a></li>
+        <li><a th:href="@{/creatures/all-creatures}">All creatures</a></li>
+        <li><a th:href="@{/post-it/home}">PostIt!</a></li>
+        <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/creatures/add}">Add a creature</a></li>
+        <li><a sec:authorize="hasRole('ADMIN')" th:href="@{/users/all-accounts}">All accounts</a></li>
+        <li>
+            <form th:method="POST" th:action="@{/logout}">
+                <input class="logout-btn" value="Logout" type="submit"/>
+            </form>
+        </li>
+    </ul>
+</nav>
+<footer>
+    <ul class="footer-ul">
+        <li>ParaHunters</li>
+        <li>Contact us on: parahunters@support.com</li>
+        <li>
+            <ul class="icon-class">
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+                <i class="fa-brands fa-facebook"></i>
+            </ul>
+        </li>
+    </ul>
+</footer>
+</body>
+</html>
