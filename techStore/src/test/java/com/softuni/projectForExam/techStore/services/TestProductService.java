@@ -40,7 +40,6 @@ public class TestProductService {
     MockMvc mockMvc;
     private ProductRepository mockProductRepository;
     private ProductTypeRepository mockProductTypeRepository;
-    private UserRepository mockUserRepository;
     private UserService mockUserService;
     private UserEntity testUserP;
     private Product testProduct;
@@ -53,7 +52,6 @@ public class TestProductService {
     @BeforeEach
     void setUp() {
         this.mockProductRepository = Mockito.mock(ProductRepository.class);
-        this.mockUserRepository = Mockito.mock(UserRepository.class);
         this.mockProductTypeRepository = Mockito.mock(ProductTypeRepository.class);
         this.mockUserService = Mockito.mock(UserService.class);
 
@@ -106,7 +104,7 @@ public class TestProductService {
     public void TestProductServiceShouldCreateAProductSuccessfully() {
         Mockito.when(mockProductRepository.findByName("Pistol")).thenReturn(testProduct);
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserRepository, mockUserService);
+        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
 
         assertFalse(productService.create(null));
 
@@ -126,7 +124,7 @@ public class TestProductService {
     public void TestProductServiceShouldLetUsersBuyProductsFlawlessly(){
         Mockito.when(mockProductRepository.findById(2L)).thenReturn(Optional.of(testProduct));
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserRepository, mockUserService);
+        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
 
         productService.buy(testProduct.getId());
 
@@ -134,11 +132,13 @@ public class TestProductService {
     }
 
     @Test
-    @Secured("ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void TestGetProductsForDisplayReturnsProperLists(){
         Mockito.when(mockProductRepository.findAll()).thenReturn(List.of(testProduct, testProduct2));
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserRepository, mockUserService);
+        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
+
+        Mockito.when(mockUserService.getCurrentUser()).thenReturn(testUserP);
 
         ListingDisplayDTO actual = productService.getListingsForDisplay();
 

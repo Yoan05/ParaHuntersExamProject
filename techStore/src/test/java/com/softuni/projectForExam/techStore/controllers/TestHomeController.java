@@ -19,8 +19,6 @@ public class TestHomeController {
     @Autowired
     MockMvc mockMvc;
     private ProductService mockProductService;
-
-
     private HomeController homeController;
 
     @BeforeEach

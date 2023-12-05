@@ -40,7 +40,6 @@ public class TestPostItController {
             setId(1L);
             setDescription("Les goo");
             setImgUrl("postImgUrl");
-            setLikes(12);
         }};
 
         mockPostService = Mockito.mock(PostService.class);

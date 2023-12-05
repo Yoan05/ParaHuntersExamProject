@@ -8,13 +8,10 @@ import com.softuni.projectForExam.techStore.repositories.UserRepository;
 import com.softuni.projectForExam.techStore.services.impl.PostServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -36,6 +33,8 @@ public class TestPostService {
     private PostCreateBindingModel postCreateBindingModel;
     private UserEntity testUserP;
 
+
+
     @BeforeEach
     void setUp(){
         testPost = new Post(){{
@@ -43,7 +42,6 @@ public class TestPostService {
             setDescription("Les goo");
             setImgUrl("postImgUrl");
             setCreatedBy(testUserP);
-            setLikes(12);
         }};
 
         this.testUserP = new UserEntity() {{
