@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ParaHuntersErrorController implements ErrorController {
 
     @RequestMapping("/error")
-    public ModelAndView handleError(HttpServletRequest request, String message){
+    public ModelAndView handleError(HttpServletRequest request){
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String path = "";
 
@@ -27,6 +27,11 @@ public class ParaHuntersErrorController implements ErrorController {
             }
         }
         path = "error/error";
-        return model;
+        return new ModelAndView(path);
+    }
+
+    @RequestMapping("login-error")
+    public ModelAndView loginError(){
+        return new ModelAndView("error/login-error");
     }
 }

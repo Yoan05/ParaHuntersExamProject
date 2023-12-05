@@ -3,10 +3,13 @@ package com.softuni.projectForExam.techStore.models;
 import com.softuni.projectForExam.techStore.entities.ProductType;
 import com.softuni.projectForExam.techStore.entities.enums.ProductTypeEnum;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class CreateProductBindingModel {
+    @NotNull
     private String name;
+    @NotNull
     private BigDecimal price;
     private String description;
     private ProductTypeEnum type;

@@ -53,7 +53,7 @@ public class UserController {
         ModelAndView model = new ModelAndView("all-accounts");
         List<UserDisplayDTO> list = userService.usersForDisplay();
         model.addObject("allUsers", list);
-        model.addObject("currentUser", getCurrentUser());
+        model.addObject("currentUser", userService.getCurrentUser());
         model.addObject("adminValue", RolesEnum.ADMIN);
         return model;
     }
@@ -66,14 +66,5 @@ public class UserController {
             return new ModelAndView("redirect:/users/all-accounts");
         }
         return new ModelAndView("redirect:/users/all-accounts");
-    }
-
-
-    private UserEntity getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        String currentUserName = authentication.getName();
-
-        return userRepository.findByFullName(currentUserName);
     }
 }

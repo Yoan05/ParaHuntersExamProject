@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+    <h2>Login Error!</h2>
+    <h2>You have entered a wrong email or password!</h2>
+    <h2 style="font-size: 20px;">
+        Try again <a th:href="@{/login}">here</a> or <a th:href="@{/register}">register</a> if you do not have an account.
+    </h2>
+</body>
+</html>

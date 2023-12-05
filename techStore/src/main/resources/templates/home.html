@@ -23,8 +23,8 @@
                         </li>
                     </ul>
                     <th:block><img th:src="${myListing.getImageUrl()}" alt="Image Missing"></th:block>
-                    <a class="view-a" th:href="@{/listings/view-my-listing/{id}(id=${myListing.getId()})}"
-                       style="color: white; text-decoration: none">View</a>
+                    <a id="view-btn-home" class="view-a" th:href="@{/listings/view-my-listing/{id}(id=${myListing.getId()})}"
+                       style="color: white; text-decoration: none" th:text="View"></a>
                 </td>
             </tr>
         </table>

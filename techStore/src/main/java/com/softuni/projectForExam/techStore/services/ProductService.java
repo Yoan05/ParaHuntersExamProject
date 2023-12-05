@@ -10,4 +10,6 @@ public interface ProductService {
     ListingDisplayDTO getListingsForDisplay();
 
     void buy(Long id);
+
+    String searchProduct(String name);
 }

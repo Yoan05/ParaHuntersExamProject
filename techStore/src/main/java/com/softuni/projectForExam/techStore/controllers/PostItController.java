@@ -24,33 +24,36 @@ public class PostItController {
 
 
     @GetMapping("/post-it/home")
-    public ModelAndView home(){
+    public ModelAndView home() {
         ModelAndView model = new ModelAndView("post-it-home");
         model.addObject("allPosts", postService.getAllPosts());
         model.addObject("currentUser", userService.getCurrentUser());
         return model;
     }
+
     @GetMapping("/post-it/create")
-    public ModelAndView create(){
+    public ModelAndView create() {
         return new ModelAndView("create-post");
     }
 
     @PostMapping("/post-it/create")
-    public ModelAndView create(PostCreateBindingModel postCreateBindingModel){
+    public ModelAndView create(PostCreateBindingModel postCreateBindingModel) {
         boolean isCreated = postService.create(postCreateBindingModel);
 
-        if (isCreated){
+        if (isCreated) {
             return new ModelAndView("redirect:/post-it/home");
         }
         return new ModelAndView("redirect:/post-it/create");
     }
+
     @PostMapping("/post-it/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Long id){
+    public ModelAndView delete(@PathVariable("id") Long id) {
         postRepository.deleteById(id);
         return new ModelAndView("redirect:/post-it/home");
     }
+
     @PostMapping("/post-it/like/{id}")
-    public ModelAndView like(@PathVariable("id") Long id){
+    public ModelAndView like(@PathVariable("id") Long id) {
         postService.like(id);
         return new ModelAndView("redirect:/post-it/home");
     }

@@ -93,15 +93,6 @@ public class ProductController {
 
     @PostMapping("/listings/search")
     public ModelAndView search(String name){
-        if (productRepository.findByName(name) != null) {
-            Product product = productRepository.findByName(name);
-            if (!product.isBought()) {
-                return new ModelAndView("redirect:/listings/view-listing/" + product.getId());
-            } else {
-                throw new ObjectNotFoundException("Not found");
-            }
-        } else {
-            throw new ObjectNotFoundException("Not found");
-        }
+        return new ModelAndView(productService.searchProduct(name));
     }
 }

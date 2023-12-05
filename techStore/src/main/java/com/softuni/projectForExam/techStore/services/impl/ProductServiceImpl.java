@@ -12,9 +12,11 @@ import com.softuni.projectForExam.techStore.repositories.ProductTypeRepository;
 import com.softuni.projectForExam.techStore.repositories.UserRepository;
 import com.softuni.projectForExam.techStore.services.ProductService;
 import com.softuni.projectForExam.techStore.services.UserService;
+import com.softuni.projectForExam.techStore.services.exception.ObjectNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,34 +28,32 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
 
-    private final UserRepository userRepository;
     private final UserService userService;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductTypeRepository productTypeRepository, UserRepository userRepository, UserService userService) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductTypeRepository productTypeRepository, UserService userService) {
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
-        this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @Override
     public boolean create(CreateProductBindingModel createProductBindingModel) {
-        if (createProductBindingModel!=null){
-            ProductType extractedType = productTypeRepository.getByType(createProductBindingModel.getType());
-            Product product = new Product();
-
-            product.setName(createProductBindingModel.getName());
-            product.setPrice(createProductBindingModel.getPrice());
-            product.setType(extractedType);
-            product.setDescription(createProductBindingModel.getDescription());
-            product.setCreatedBy(userService.getCurrentUser());
-            product.setImageUrl(createProductBindingModel.getImageUrl());
-            product.setBought(false);
-
-            productRepository.save(product);
-            return true;
+        if (createProductBindingModel == null) {
+            throw new IllegalArgumentException("Not cool");
         }
-        return false;
+        ProductType extractedType = productTypeRepository.getByType(createProductBindingModel.getType());
+        Product product = new Product();
+
+        product.setName(createProductBindingModel.getName());
+        product.setPrice(createProductBindingModel.getPrice());
+        product.setType(extractedType);
+        product.setDescription(createProductBindingModel.getDescription());
+        product.setCreatedBy(userService.getCurrentUser());
+        product.setImageUrl(createProductBindingModel.getImageUrl());
+        product.setBought(false);
+
+        productRepository.save(product);
+        return true;
     }
 
     @Override
@@ -68,28 +68,46 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : products) {
             allListings.add(new ListingDTO(product));
 
-            if (product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && product.isBought()){
+            if (product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && product.isBought()) {
                 boughtProducts.add(new BoughtProductsDTO(product));
-            } else if (product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && !product.isBought()){
+            } else if (product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && !product.isBought()) {
                 myListings.add(new ListingDTO(product));
-            } else if (!product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && !product.isBought()){
+            } else if (!product.getCreatedBy().getFullName().equals(userService.getCurrentUser().getFullName()) && !product.isBought()) {
                 listings.add(new ListingDTO(product));
             }
         }
 
-        return new ListingDisplayDTO(boughtProducts,myListings ,listings, allListings);
+        return new ListingDisplayDTO(boughtProducts, myListings, listings, allListings);
     }
 
     @Override
-    public void buy(Long id){
+    public void buy(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         productRepository.deleteById(id);
-        if (optionalProduct.isPresent()){
+        if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
 
             product.setCreatedBy(userService.getCurrentUser());
             product.setBought(true);
             productRepository.save(product);
         }
+    }
+
+    @Override
+    public String searchProduct(String name) {
+        if (name == null){
+            throw new ObjectNotFoundException("Not found");
+        }
+        List<String> allProductNames = productRepository.findAll().stream().map(Product::getName).toList();
+
+        for (String pName : allProductNames) {
+            if (pName.equalsIgnoreCase(name)) {
+                    Product product = productRepository.findByName(name);
+                    if (!product.isBought()) {
+                        return "redirect:/listings/view-listing/" + product.getId();
+                    }
+            }
+        }
+        throw new ObjectNotFoundException("Not found");
     }
 }

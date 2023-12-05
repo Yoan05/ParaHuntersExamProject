@@ -1,14 +1,20 @@
 package com.softuni.projectForExam.techStore.entities;
 
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.repository.cdi.Eager;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
+@Table(name = "posts")
 public class Post extends BaseEntity{
     @NotNull
     private String description;
@@ -16,10 +22,8 @@ public class Post extends BaseEntity{
     private UserEntity createdBy;
     @NotNull
     private String imgUrl;
-
-    @NotNull
-    private int likes;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<UserEntity> likedBy;
     private LocalDateTime date;
 
     public String getDescription() {
@@ -46,14 +50,13 @@ public class Post extends BaseEntity{
         this.imgUrl = imgUrl;
     }
 
-    public int getLikes() {
-        return likes;
+    public Set<UserEntity> getLikedBy() {
+        return likedBy;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setLikedBy(Set<UserEntity> likedBy) {
+        this.likedBy = likedBy;
     }
-
     public LocalDateTime getDate() {
         return date;
     }

@@ -19,6 +19,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
+
     public PostServiceImpl(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
@@ -27,7 +28,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public boolean create(PostCreateBindingModel postCreateBindingModel) {
-        if (postCreateBindingModel!=null){
+        if (postCreateBindingModel != null) {
             Post post = new Post();
             post.setDescription(postCreateBindingModel.getDescription());
             post.setImgUrl(postCreateBindingModel.getImageUrl());
@@ -48,15 +49,19 @@ public class PostServiceImpl implements PostService {
     @Override
     public void like(Long id) {
         Optional<Post> postOptional = postRepository.findById(id);
-        if (postOptional.isPresent()){
-            postRepository.deleteById(id);
+        if (postOptional.isPresent()) {
             Post post = postOptional.get();
-            post.setLikes(post.getLikes()+1);
+            postRepository.deleteById(id);
+            if (!post.getLikedBy().contains(getCurrentUser())) {
+                post.getLikedBy().add(getCurrentUser());
+            } else {
+                post.getLikedBy().remove(getCurrentUser());
+            }
             postRepository.save(post);
         }
     }
 
-    private UserEntity getCurrentUser(){
+    private UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String currentUserName = authentication.getName();

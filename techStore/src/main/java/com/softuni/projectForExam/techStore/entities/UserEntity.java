@@ -23,7 +23,6 @@ public class UserEntity extends BaseEntity{
     private Set<Product> products;
     @OneToMany(mappedBy = "createdBy")
     private Set<Post> posts;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleEntity> roles;
 
@@ -78,7 +77,6 @@ public class UserEntity extends BaseEntity{
     public List<RoleEntity> getRoles() {
         return roles;
     }
-
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
     }

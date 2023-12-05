@@ -19,10 +19,14 @@
                         <ul class="like-layout">
                             <li>
                                 <form th:action="@{/post-it/like/{id}(id=${post.getId()})}" th:method="POST">
-                                    <button type="submit" style="background-color: transparent ;border-color: transparent; font-size: 16px"><i class="fa-regular fa-heart"></i></button>
+                                    <button type="submit"
+                                            style="background-color: transparent ;border-color: transparent; font-size: 16px">
+                                        <i class="fa-regular fa-heart"></i></button>
                                 </form>
                             </li>
-                            <li th:text="${post.getLikes()} + ' likes'">100 likes</li>
+                            <li
+                                th:text=" ${post.getLikedBy().size()} + ' likes'">
+                            </li>
                             <form th:if="${currentUser.getFullName()} == ${post.getCreatedBy().getFullName()}"
                                   th:action="@{/post-it/delete/{id}(id=${post.getId()})}" th:method="POST">
                                 <button class="clear-btn" type="submit">Delete My Post</button>
@@ -30,7 +34,6 @@
                         </ul>
                     </li>
                     <li th:text="${post.getDate().getDayOfMonth()} + '-' + ${post.getDate().getMonthValue()} + '-' + ${post.getDate().getYear()}">
-                        date?
                     </li>
                 </ul>
             </td>
