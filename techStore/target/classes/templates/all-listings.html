@@ -8,8 +8,10 @@
 <table class="all-listings">
     <h2 th:if="${listingDisplayDTO.getListings().isEmpty()}">There are no other listings.</h2>
     <form class="search-bar" th:if="${!listingDisplayDTO.getListings().isEmpty()}" th:action="@{/listings/search}" th:method="POST">
-        <input id="search-input" name="name" type="text" placeholder="Search for a product">
-        <button type="submit">search</button>
+        <div style="margin-left: 30px">
+        <input id="search-input" name="name" type="text" placeholder="Search for a product" style="background-color: transparent; font-size: 16px">
+        <button type="submit" style="background-color: transparent; font-size: 16px; color: #555555">search</button>
+        </div>
     </form>
     <tr th:each="listing : ${listingDisplayDTO.getListings()}">
         <td>
