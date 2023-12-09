@@ -1,5 +1,5 @@
 # ParaHuntersExamProject
-This is my project for the Java Web course final exam. It is a website, providing every hunter with Creature wiki, Store for used weapons and gadgets and a social media called "PostIt!". I decided to change the name from techStore to paraHunters a little too late so the directory is called techStore.
+This is my project for the Java Web course final exam. It is a website, providing every hunter with the ability to sell their used weapons and gadgets, a creature wiki and a social media called "PostIt!". I decided to change the name from techStore to paraHunters a little too late so the directory is called techStore.
 
 Context: ParaHunters is a global organisation which is dedicated to fighting paranormal creatures. It was established in 1817 and its purpose is to teach people how to become hunters and to create a community in which they can help each other. The website is a multi-purpose platform for legitimate hunters, where they can sell the weapons they are no longer using, check creatures' wiki and post memories in "PostIt".
 
