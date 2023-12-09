@@ -5,10 +5,12 @@ import com.softuni.projectForExam.techStore.entities.ProductType;
 import com.softuni.projectForExam.techStore.entities.UserEntity;
 import com.softuni.projectForExam.techStore.entities.enums.ProductTypeEnum;
 import com.softuni.projectForExam.techStore.models.CreateProductBindingModel;
+import com.softuni.projectForExam.techStore.models.CreatureAddBindingModel;
 import com.softuni.projectForExam.techStore.models.listingDisplayDTOs.ListingDisplayDTO;
 import com.softuni.projectForExam.techStore.repositories.ProductRepository;
 import com.softuni.projectForExam.techStore.repositories.ProductTypeRepository;
 import com.softuni.projectForExam.techStore.repositories.UserRepository;
+import com.softuni.projectForExam.techStore.services.exception.ObjectNotFoundException;
 import com.softuni.projectForExam.techStore.services.impl.ProductServiceImpl;
 import org.apache.tomcat.jni.User;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -30,7 +32,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,7 +49,8 @@ public class TestProductService {
 
     private ProductType testType;
     private CreateProductBindingModel testCreateProductBindingModel;
-
+    private CreateProductBindingModel blackProduct;
+    private ProductService productService;
 
     @BeforeEach
     void setUp() {
@@ -97,6 +100,15 @@ public class TestProductService {
             setPrice(BigDecimal.valueOf(15));
             setImageUrl("PistolImgUrl");
         }};
+
+        this.blackProduct = new CreateProductBindingModel(){{
+            setName("");
+            setDescription("");
+            setPrice(null);
+            setImageUrl("");
+        }};
+
+        this.productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
     }
 
     @Test
@@ -104,9 +116,7 @@ public class TestProductService {
     public void TestProductServiceShouldCreateAProductSuccessfully() {
         Mockito.when(mockProductRepository.findByName("Pistol")).thenReturn(testProduct);
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
-
-        assertFalse(productService.create(null));
+        assertFalse(productService.create(blackProduct));
 
         Product expected = testProduct;
 
@@ -124,8 +134,6 @@ public class TestProductService {
     public void TestProductServiceShouldLetUsersBuyProductsFlawlessly(){
         Mockito.when(mockProductRepository.findById(2L)).thenReturn(Optional.of(testProduct));
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
-
         productService.buy(testProduct.getId());
 
         Assertions.assertTrue(testProduct.isBought());
@@ -136,12 +144,17 @@ public class TestProductService {
     public void TestGetProductsForDisplayReturnsProperLists(){
         Mockito.when(mockProductRepository.findAll()).thenReturn(List.of(testProduct, testProduct2));
 
-        ProductService productService = new ProductServiceImpl(mockProductRepository, mockProductTypeRepository, mockUserService);
-
         Mockito.when(mockUserService.getCurrentUser()).thenReturn(testUserP);
 
         ListingDisplayDTO actual = productService.getListingsForDisplay();
 
         assertFalse(actual.getAllListings().isEmpty());
+    }
+
+    @Test
+    public void TestSearchBarThrowsWhenThereIsNoSuchProduct(){
+        assertThrows(ObjectNotFoundException.class, () -> {
+            productService.searchProduct("banana");
+        });
     }
 }

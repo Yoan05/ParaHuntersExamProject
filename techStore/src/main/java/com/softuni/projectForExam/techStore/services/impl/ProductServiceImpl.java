@@ -13,6 +13,7 @@ import com.softuni.projectForExam.techStore.repositories.UserRepository;
 import com.softuni.projectForExam.techStore.services.ProductService;
 import com.softuni.projectForExam.techStore.services.UserService;
 import com.softuni.projectForExam.techStore.services.exception.ObjectNotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean create(CreateProductBindingModel createProductBindingModel) {
-        if (createProductBindingModel == null) {
-            throw new IllegalArgumentException("Not cool");
+        if (isNull(createProductBindingModel)) {
+            return false;
         }
         ProductType extractedType = productTypeRepository.getByType(createProductBindingModel.getType());
         Product product = new Product();
@@ -94,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String searchProduct(String name) {
+    public String searchProduct(String name) throws ObjectNotFoundException{
         if (name == null){
             throw new ObjectNotFoundException("Not found");
         }
@@ -109,5 +110,19 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         throw new ObjectNotFoundException("Not found");
+    }
+
+    private static boolean isNull(CreateProductBindingModel cpbm){
+        if (cpbm.getName().isBlank()){
+            return true;
+        } else if (cpbm.getDescription().isBlank()){
+            return true;
+        } else if (cpbm.getPrice() == null){
+            return true;
+        } else if (cpbm.getImageUrl().isBlank()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

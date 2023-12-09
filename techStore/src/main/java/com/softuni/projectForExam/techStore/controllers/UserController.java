@@ -44,7 +44,7 @@ public class UserController {
         if (isRegistered) {
             return new ModelAndView("redirect:/login");
         } else {
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("redirect:/register");
         }
     }
 
@@ -66,5 +66,19 @@ public class UserController {
             return new ModelAndView("redirect:/users/all-accounts");
         }
         return new ModelAndView("redirect:/users/all-accounts");
+    }
+
+    @GetMapping("/users/my-account")
+    public ModelAndView myAccount(){
+        ModelAndView model = new ModelAndView("my-account");
+
+        model.addObject("user", userService.getCurrentUser());
+
+        return model;
+    }
+
+    @RequestMapping("/login-error")
+    public ModelAndView loginError(){
+        return new ModelAndView("error/login-error");
     }
 }

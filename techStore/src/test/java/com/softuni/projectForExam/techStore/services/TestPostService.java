@@ -33,7 +33,7 @@ public class TestPostService {
     private PostCreateBindingModel postCreateBindingModel;
     private UserEntity testUserP;
 
-
+    private PostCreateBindingModel blackPost;
 
     @BeforeEach
     void setUp(){
@@ -57,6 +57,11 @@ public class TestPostService {
             setImageUrl("postImgUrl");
         }};
 
+        this.blackPost = new PostCreateBindingModel(){{
+           setDescription("");
+           setImageUrl("");
+        }};
+
         mockPostRepository = Mockito.mock(PostRepository.class);
         mockUserRepository = Mockito.mock(UserRepository.class);
     }
@@ -68,7 +73,7 @@ public class TestPostService {
         PostService postService = new PostServiceImpl(mockPostRepository, mockUserRepository);
 
         assertTrue(postService.create(postCreateBindingModel));
-        assertFalse(postService.create(null));
+        assertFalse(postService.create(blackPost));
 
         Post expected = testPost;
 

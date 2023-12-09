@@ -32,6 +32,7 @@ public class TestCreatureService {
     private CreatureAddBindingModel creatureAddBindingModel;
     private CreatureRepository mockCreatureRepository;
     private CreatureDifficultyRepository mockCreatureDifficultyRepository;
+    private CreatureAddBindingModel blackModel;
 
     @BeforeEach
     void setUp(){
@@ -52,6 +53,13 @@ public class TestCreatureService {
            setRegion("Romania");
            setId(1);
         }};
+        this.blackModel = new CreatureAddBindingModel(){{
+            setName("");
+            setDifficulty(CreatureDifficultyEnum.EASY);
+            setDescription("");
+            setRegion("");
+            setImageUrl("");
+        }};
         this.mockCreatureRepository = Mockito.mock(CreatureRepository.class);
         this.mockCreatureDifficultyRepository = Mockito.mock(CreatureDifficultyRepository.class);
     }
@@ -61,7 +69,7 @@ public class TestCreatureService {
         CreatureService creatureService = new CreatureServiceImpl(mockCreatureRepository, mockCreatureDifficultyRepository);
         Mockito.when(mockCreatureRepository.findByName("Ghost")).thenReturn(testCreature);
 
-        assertFalse(creatureService.add(null));
+        assertFalse(creatureService.add(blackModel));
 
         Assertions.assertTrue(creatureService.add(creatureAddBindingModel));
         creatureService.add(creatureAddBindingModel);

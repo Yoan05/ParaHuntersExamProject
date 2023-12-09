@@ -9,16 +9,15 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity{
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String fullName;
     @Email
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
-    @NotNull
+    @Column(nullable = false, unique = true)
     private String hunterCode;
-    //0000 for normal hunter, 1111 for admin
     @OneToMany(mappedBy = "createdBy")
     private Set<Product> products;
     @OneToMany(mappedBy = "createdBy")

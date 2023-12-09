@@ -28,9 +28,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public boolean create(PostCreateBindingModel postCreateBindingModel) {
-        if (postCreateBindingModel != null) {
+        if (!postCreateBindingModel.getImageUrl().isBlank()) {
             Post post = new Post();
-            post.setDescription(postCreateBindingModel.getDescription());
+            if (postCreateBindingModel.getDescription().isBlank()){
+                post.setDescription("");
+            } else {
+                post.setDescription(postCreateBindingModel.getDescription());
+            }
             post.setImgUrl(postCreateBindingModel.getImageUrl());
             post.setCreatedBy(getCurrentUser());
             post.setDate(LocalDateTime.now());

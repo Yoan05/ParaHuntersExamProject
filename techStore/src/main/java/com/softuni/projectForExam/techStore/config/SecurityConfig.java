@@ -2,6 +2,7 @@ package com.softuni.projectForExam.techStore.config;
 
 import com.softuni.projectForExam.techStore.repositories.UserRepository;
 import com.softuni.projectForExam.techStore.services.impl.ParaHuntersUserDetailsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +40,10 @@ public class SecurityConfig {
                 }
         );
         return httpSecurity.build();
+    }
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
     }
 
     @Bean

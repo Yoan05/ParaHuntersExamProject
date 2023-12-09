@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     private final AfterCompletionInterceptor afterCompletionInterceptor;
 
-
     public WebConfig(AfterCompletionInterceptor afterCompletionInterceptor) {
         this.afterCompletionInterceptor = afterCompletionInterceptor;
     }

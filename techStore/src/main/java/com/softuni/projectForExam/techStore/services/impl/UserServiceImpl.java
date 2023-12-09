@@ -8,6 +8,8 @@ import com.softuni.projectForExam.techStore.models.userDisplayDTOs.UserDisplayDT
 import com.softuni.projectForExam.techStore.repositories.RoleRepository;
 import com.softuni.projectForExam.techStore.repositories.UserRepository;
 import com.softuni.projectForExam.techStore.services.UserService;
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,26 +24,26 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    private final ModelMapper mapper;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ModelMapper mapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.mapper = mapper;
     }
 
     @Override
     public boolean register(UserRegisterBindingModel userRegisterBindingModel) {
-        if (userRegisterBindingModel != null){
+        if (!isNull(userRegisterBindingModel)){
 
             UserEntity userEntity = new UserEntity();
-            userEntity.setEmail(userRegisterBindingModel.getEmail());
+
+            mapper.map(userRegisterBindingModel, userEntity);
+
             userEntity.setPassword(passwordEncoder.encode(userRegisterBindingModel.getPassword()));
-            userEntity.setHunterCode(userRegisterBindingModel.getHunterCode());
-            userEntity.setFullName(userRegisterBindingModel.getFullName());
-            if (userRegisterBindingModel.getHunterCode().equals("1111")){
-                userEntity.setRoles(loadAdminRoles());
-            } else if (userRegisterBindingModel.getHunterCode().equals("0000")){
-                userEntity.setRoles(loadUserRoles());
-            }
+
+            userEntity.setRoles(rolesSetUp(userRegisterBindingModel.getHunterCode()));
 
             userRepository.save(userEntity);
             return true;
@@ -69,25 +71,30 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByFullName(currentUserName);
     }
 
-    private List<RoleEntity> loadAdminRoles(){
+    private List<RoleEntity> rolesSetUp(String code){
         RoleEntity roleUser = roleRepository.findByName(RolesEnum.USER);
         RoleEntity roleAdmin = roleRepository.findByName(RolesEnum.ADMIN);
-        List<RoleEntity> admin = new ArrayList<>();
-
-        admin.add(roleAdmin);
-        admin.add(roleUser);
-
-        return admin;
+        List<RoleEntity> roles = new ArrayList<>();
+        if (code.equals("1111")){
+            roles.add(roleAdmin);
+            roles.add(roleUser);
+        } else {
+            roles.add(roleUser);
+        }
+        return roles;
     }
 
-    private List<RoleEntity> loadUserRoles(){
-        RoleEntity roleUser = roleRepository.findByName(RolesEnum.USER);
-        List<RoleEntity> user = new ArrayList<>();
-
-        user.add(roleUser);
-
-        return user;
+    private static boolean isNull(UserRegisterBindingModel urbm){
+        if (urbm.getFullName().isBlank()){
+            return true;
+        } else if (urbm.getEmail().isBlank()){
+            return true;
+        } else if (urbm.getHunterCode().isBlank()){
+            return true;
+        } else if (urbm.getPassword().isBlank()){
+            return true;
+        } else {
+            return false;
+        }
     }
-
-
 }

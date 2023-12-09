@@ -25,7 +25,7 @@ public class CreatureServiceImpl implements CreatureService {
 
     @Override
     public boolean add(CreatureAddBindingModel creatureAddBindingModel) {
-        if (creatureAddBindingModel != null){
+        if (!isNull(creatureAddBindingModel)){
 
             Creature creature = new Creature();
             CreatureDifficulty difficulty = creatureDifficultyRepository.findByName(creatureAddBindingModel.getDifficulty());
@@ -52,4 +52,17 @@ public class CreatureServiceImpl implements CreatureService {
         return list;
     }
 
+    private static boolean isNull(CreatureAddBindingModel cabm){
+        if (cabm.getName().isBlank()){
+            return true;
+        } else if (cabm.getDescription().isBlank()){
+            return true;
+        } else if (cabm.getRegion().isBlank()){
+            return true;
+        } else if (cabm.getImageUrl().isBlank()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

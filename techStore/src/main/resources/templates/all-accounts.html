@@ -17,7 +17,7 @@
           <li th:text="'Role: ' + ${user.getRoles().get(0).getName()}"></li>
           <li th:unless="${user.getRoles().get(0).getName() == adminValue}">
             <form th:action="@{/users/delete/{id}(id=${user.getId()})}" th:method="POST">
-            <button type="submit">Delete</button>
+            <button type="submit" style="background-color: transparent; color: white; border-color: #555555">Delete Account</button>
             </form>
           </li>
         </ul>
