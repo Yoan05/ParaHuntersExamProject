@@ -16,6 +16,7 @@
 <nav>
     <ul class="nav-links">
         <li><a th:href="@{/home}">Welcome to ParaHunters, <th:block sec:authentication="name"></th:block>!</a></li>
+        <li><a th:href="@{/users/my-account}">View account</a></li>
         <li><a th:href="@{/listings/create}">Create a listing</a></li>
         <li><a th:href="@{/listings/all-listings}">Other Listings</a></li>
         <li><a th:href="@{/creatures/all-creatures}">All creatures</a></li>

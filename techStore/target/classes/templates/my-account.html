@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+<nav th:replace="/fragments/commons::nav"></nav>
+
+<h2>
+    <th:block sec:authentication="name"></th:block>
+    's account:
+</h2>
+
+<table>
+    <tr>
+        <td>
+            <ul style="display: flex; flex-direction: column; gap: 10px; font-size: 20px">
+                <li style="font-size: 20px">
+                    <th:block th:text="'Name: ' + ${user.getFullName()}"></th:block>
+                </li>
+                <li style="font-size: 20px">
+                    <th:block th:text="'Email: ' + ${user.getEmail()}"></th:block>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+<footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>
