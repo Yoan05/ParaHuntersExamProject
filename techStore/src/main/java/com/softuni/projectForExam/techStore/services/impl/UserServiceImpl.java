@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(UserRegisterBindingModel userRegisterBindingModel) {
-        if (!isNull(userRegisterBindingModel)){
+        if (!isNull(userRegisterBindingModel) && userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())){
 
             UserEntity userEntity = new UserEntity();
 
