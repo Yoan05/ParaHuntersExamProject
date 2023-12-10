@@ -26,7 +26,7 @@
                     <th:block th:text="'Type: ' + ${viewedProduct.getType().getDescription()}">Type:</th:block>
                 </p>
             </div>
-            <form class="buy-form" th:action="@{/listings/buy/{id}(id=${viewedProduct.getId()})}" th:method="POST">
+            <form th:unless="${viewedProduct.getCreatedBy().getFullName()} == ${currentUser.getFullName()}" class="buy-form" th:action="@{/listings/buy/{id}(id=${viewedProduct.getId()})}" th:method="POST">
             <button class="buy-btn" type="submit">
                 Buy Product
             </button>
