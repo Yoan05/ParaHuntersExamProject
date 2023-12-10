@@ -4,6 +4,7 @@ import com.softuni.projectForExam.techStore.entities.Product;
 import com.softuni.projectForExam.techStore.models.CreateProductBindingModel;
 import com.softuni.projectForExam.techStore.repositories.ProductRepository;
 import com.softuni.projectForExam.techStore.services.ProductService;
+import com.softuni.projectForExam.techStore.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,14 +28,15 @@ public class TestProductController {
     private ProductRepository mockProductRepository;
     private CreateProductBindingModel testCreateProductBindingModel;
     private Product testProduct;
-
+    private UserService mockUserService;
     private ProductController productController;
 
     @BeforeEach
     void setUp() {
         mockProductService = Mockito.mock(ProductService.class);
         mockProductRepository = Mockito.mock(ProductRepository.class);
-        productController = new ProductController(mockProductService, mockProductRepository);
+        mockUserService=Mockito.mock(UserService.class);
+        productController = new ProductController(mockProductService, mockProductRepository, mockUserService);
         this.testCreateProductBindingModel = new CreateProductBindingModel() {{
             setName("Pistol");
             setDescription("Big pistol");

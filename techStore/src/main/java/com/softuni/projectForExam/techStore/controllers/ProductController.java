@@ -5,7 +5,7 @@ import com.softuni.projectForExam.techStore.models.CreateProductBindingModel;
 import com.softuni.projectForExam.techStore.models.listingDisplayDTOs.ListingDisplayDTO;
 import com.softuni.projectForExam.techStore.repositories.ProductRepository;
 import com.softuni.projectForExam.techStore.services.ProductService;
-import com.softuni.projectForExam.techStore.services.exception.ObjectNotFoundException;
+import com.softuni.projectForExam.techStore.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +18,12 @@ import java.util.Optional;
 public class ProductController {
     private final ProductService productService;
     private final ProductRepository productRepository;
+    private final UserService userService;
 
-    public ProductController(ProductService productService, ProductRepository productRepository) {
+    public ProductController(ProductService productService, ProductRepository productRepository, UserService userService) {
         this.productService = productService;
         this.productRepository = productRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/listings/view-listing/{id}")
@@ -33,6 +35,7 @@ public class ProductController {
         if (optionalProduct.isPresent()){
             Product product = optionalProduct.get();
             modelAndView.addObject("viewedProduct", product);
+            modelAndView.addObject("currentUser", userService.getCurrentUser());
             return modelAndView;
         } else {
             return new ModelAndView("redirect:/home");
